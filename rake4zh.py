@@ -31,7 +31,7 @@ def load_stop_words(stop_word_file_path):
 	stop_words = []
 	for stp_wd in open(stop_word_file_path, encoding = 'utf8'):
 		stop_words.append(stp_wd.strip())
-		return stop_words
+	return stop_words
 
 def separate_words(text, min_word_return_size):
 	'''
@@ -56,12 +56,12 @@ def split_sentences(text):
 	sentences = sentence_delimiters.split(text)
 	return sentences
 
-def build_stop_word_regex(stop_word_file_path):
+def build_stop_word_regex(stop_word_file_path, min_length = 1, max_length = 3):
 	stop_word_list = load_stop_words(stop_word_file_path)
 	stop_word_regex_list = []
-	for word in stop_word_list:
-		word_regex = r'\b' + word + r'(?![\w-])'  # added look ahead for hyphen
-		stop_word_regex_list.append(word_regex)
+	for word_regex in stop_word_list:
+		if len(word_regex) <= max_length and len(word_regex) >=  min_length:
+			stop_word_regex_list.append(word_regex)
 	stop_word_pattern = re.compile('|'.join(stop_word_regex_list), re.IGNORECASE)
 	return stop_word_pattern
 
@@ -127,7 +127,7 @@ class Rake(object):
 
 		keyword_candidates = generate_candidate_keyword_scores(phrase_list, word_scores)
 
-		sorted_keywords = sorted(keyword_candidates.items(), key=lambda x :x[1], reverse=True)
+		sorted_keywords = sorted(keyword_candidates.items(), key = lambda x :x[1], reverse = True)
 		return sorted_keywords
 
 
@@ -148,7 +148,7 @@ if test:
 	keywordcandidates = generate_candidate_keyword_scores(phraseList, wordscores)
 	if debug: print (keywordcandidates)
 
-	sortedKeywords = sorted(keywordcandidates.items(), key=lambda s:s[1], reverse=True)
+	sortedKeywords = sorted(keywordcandidates.items(), key = lambda s: s[1], reverse = True)
 	if debug:
 		print (sortedKeywords)
 
@@ -158,5 +158,5 @@ if test:
 		print (sortedKeywords[0:(totalKeywords // 3)])
 
 	rake = Rake("../Chinese_stop_words.txt")
-	keywords = rake.run('../Chinese_text.txt')
+	keywords = rake.run('../nlp/Chinese_text.txt')
 	print(keywords)
