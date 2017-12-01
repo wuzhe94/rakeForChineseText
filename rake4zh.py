@@ -132,10 +132,10 @@ class Rake(object):
 
 
 if test:
-	text = load_text('../Chinese_text.txt')
+	text = load_text('Chinese_text.txt')
 	# Split text into sentences
 	sentenceList = split_sentences(text)
-	stoppath = '../Chinese_stop_words.txt'
+	stoppath = 'Chinese_stop_words.txt'
 	stopwordpattern = build_stop_word_regex(stoppath)
 
 	# generate candidate keywords
@@ -157,6 +157,6 @@ if test:
 		print (totalKeywords)
 		print (sortedKeywords[0:(totalKeywords // 3)])
 
-	rake = Rake("../Chinese_stop_words.txt")
-	keywords = rake.run('../nlp/Chinese_text.txt')
+	rake = Rake("Chinese_stop_words.txt")
+	keywords = rake.run('Chinese_text.txt')
 	print(keywords)
