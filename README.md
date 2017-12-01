@@ -12,5 +12,6 @@ Implementation of RAKE algorithm for Chinese text
   - ![](https://github.com/wuzhe94/RAKE/blob/master/img/keyPhrases.jpg)
   
 If there is any doubts, please feel free to contact me.
+
 Zhe
 wuzhe94@gmail.com
